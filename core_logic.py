@@ -1,15 +1,13 @@
-import streamlit as st
-
-st.write("Secrets keys available:", list(st.secrets.keys()))
-st.write("GEMINI_API_KEY:", st.secrets.get("GEMINI_API_KEY"))
 # File: core_logic.py
 
 import streamlit as st
 import google.generativeai as genai
 
 def configure_api():
-    """Configures the Gemini API using Streamlit secrets (for secure key management)."""
-    genai.configure(api_key=st.secrets["AIzaSyCCPb5zuTlPnONSe4gDj-5a4nnBoLIqvto"])
+    """Configures the Gemini API using the API key stored securely in Streamlit secrets."""
+    # Correct way: Fetch the API key from Streamlit secrets dictionary by key name
+    api_key = st.secrets["GEMINI_API_KEY"]
+    genai.configure(api_key=api_key)
 
 def get_master_prompt(business_name, business_type, tone, special_offer, contact_info, review_text):
     """Crafts the detailed, high-quality prompt for GPT model to generate reply."""
@@ -45,6 +43,3 @@ def generate_response(business_name, business_type, tone, special_offer, contact
     except Exception as e:
         st.error(f"API Error: {e}")
         return "Error: Unable to generate response. Please check your API key and internet connection."
-
-
-
