@@ -5,7 +5,7 @@ import google.generativeai as genai
 
 def configure_api():
     """Configures the Gemini API using Streamlit secrets (for secure key management)."""
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+    genai.configure(api_key=st.secrets["AIzaSyCCPb5zuTlPnONSe4gDj-5a4nnBoLIqvto"])
 
 def get_master_prompt(business_name, business_type, tone, special_offer, contact_info, review_text):
     """Crafts the detailed, high-quality prompt for GPT model to generate reply."""
@@ -34,10 +34,11 @@ def get_master_prompt(business_name, business_type, tone, special_offer, contact
 def generate_response(business_name, business_type, tone, special_offer, contact_info, review_text):
     """Calls Gemini LLM and returns the generated reply text."""
     try:
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('models/gemini-2.5-pro')
         prompt = get_master_prompt(business_name, business_type, tone, special_offer, contact_info, review_text)
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
         st.error(f"API Error: {e}")
         return "Error: Unable to generate response. Please check your API key and internet connection."
+
