@@ -42,3 +42,4 @@ def generate_response(business_name, business_type, tone, special_offer, contact
         st.error(f"API Error: {e}")
         return "Error: Unable to generate response. Please check your API key and internet connection."
 
+
